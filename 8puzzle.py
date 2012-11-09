@@ -58,12 +58,51 @@ def keypress(event):
 	if event.keysym == 'Down':
 		move('Down')
 
-	if event.char == 's':
-		print "solve now"
-		Breitensuche(state).start()
-	
+	if event.char == 'b':
+		print "Breitensuche"
+		BFS(state).start()
+	if event.char == 'd':
+		print "Tiefensuche"
+		DFS(state).start()
 
-class Breitensuche:
+class DFS:
+	state = []
+
+	def __init__(self, state):
+		self.state = state
+
+	def start(self):
+		if self.state == goal:
+			return self.state
+		else:
+			nodes = self.nodes(self.state)
+			for node in nodes:
+				print DFS(node).start().state	
+
+	def nodes(self, current):
+		i = current.index('0')
+		nodes = []
+
+		if i%3 != 0:
+			tmp = current[:]
+			tmp[i], tmp[i-1] = tmp[i-1], tmp[i]
+			nodes.append(tmp)
+		if i%3 != 2:
+			tmp = current[:]
+			tmp[i], tmp[i+1] = tmp[i+1], tmp[i]
+			nodes.append(tmp)
+		if i > 2:
+			tmp = current[:]
+			tmp[i], tmp[i-3] = tmp[i-3], tmp[i]
+			nodes.append(tmp)
+		if i < 6:
+			tmp = current[:]
+			tmp[i], tmp[i+3] = tmp[i+3], tmp[i]
+			nodes.append(tmp)
+
+		return nodes
+
+class BFS:
 	queue = []
 	visited = []
 

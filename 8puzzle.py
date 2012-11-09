@@ -40,7 +40,7 @@ def move(direction):
 
 	return True
 
-def swap(state, i, j):
+def swap(i, j):
 	state[i], state[j] = state[j], state[i]
 	return state
 
@@ -60,60 +60,56 @@ def keypress(event):
 
 	if event.char == 's':
 		print "solve now"
-		breitensuche(state, goal)
+		Breitensuche(state).start()
+	
 
-def has_adj(active):
-	i = active.index('0')
-
-	if i%3 != 0:
-		return True
-	elif i%3 != 2:
-		return True
-	elif i > 2:
-		return True
-	elif i < 6:
-		return True
-	else:
-		return False
-
-def get_adj(active):
-	i = active.index('0')
-	adj = []
-
-	if i%3 != 0:
-		tmp = active[:]
-		adj.append(swap(tmp, i, i-1))
-	if i%3 != 2:
-		tmp = active[:]
-		adj.append(swap(tmp, i, i+1))
-	if i > 2:
-		tmp = active[:]
-		adj.append(swap(tmp, i, i-3))
-	if i < 6:
-		tmp = active[:]
-		adj.append(swap(tmp, i, i+3))
-
-	return adj
-
-def breitensuche(state, goal):
-	queue = [state]
+class Breitensuche:
+	queue = []
 	visited = []
 
-	while len(queue) > 0:
-		active = queue.pop(0)
-		visited.append(active)
+	def __init__(self, state):
+		self.queue.append(state)
 
-		if has_adj(active):
-			for node in get_adj(active):
-				if node in visited:
-					continue
-				if node == goal:
-					print 'SOLVED!' 
-					print node
-					return True
-				queue.append(node)
+	def start(self):
+		while len(self.queue) > 0:
+			active = self.queue.pop(0)
+			self.visited.append(active)
 
-	return False
+			nodes = self.nodes(active)
+			if len(nodes) > 0:
+				for node in nodes:
+					if node in self.visited:
+						continue
+					if node == goal:
+						print 'SOLVED!' 
+						print node
+						return True
+					self.queue.append(node)
+
+		return False
+
+	def nodes(self, current):
+		i = current.index('0')
+		nodes = []
+
+		if i%3 != 0:
+			tmp = current[:]
+			tmp[i], tmp[i-1] = tmp[i-1], tmp[i]
+			nodes.append(tmp)
+		if i%3 != 2:
+			tmp = current[:]
+			tmp[i], tmp[i+1] = tmp[i+1], tmp[i]
+			nodes.append(tmp)
+		if i > 2:
+			tmp = current[:]
+			tmp[i], tmp[i-3] = tmp[i-3], tmp[i]
+			nodes.append(tmp)
+		if i < 6:
+			tmp = current[:]
+			tmp[i], tmp[i+3] = tmp[i+3], tmp[i]
+			nodes.append(tmp)
+
+		return nodes
 
 
 root = Tk()

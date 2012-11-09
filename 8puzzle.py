@@ -38,6 +38,9 @@ def move(direction):
 		else:
 			return False
 
+	update()
+	if is_done():
+		print "SOLVED!"
 	return True
 
 def swap(i, j):
@@ -73,11 +76,12 @@ class DFS:
 
 	def start(self):
 		if self.state == goal:
+			print self.state
 			return self.state
 		else:
 			nodes = self.nodes(self.state)
 			for node in nodes:
-				print DFS(node).start().state	
+				return DFS(node).start()	
 
 	def nodes(self, current):
 		i = current.index('0')
@@ -85,11 +89,11 @@ class DFS:
 
 		if i%3 != 0:
 			tmp = current[:]
-			tmp[i], tmp[i-1] = tmp[i-1], tmp[i]
+			tmp[i], tmp[i+1] = tmp[i+1], tmp[i]
 			nodes.append(tmp)
 		if i%3 != 2:
 			tmp = current[:]
-			tmp[i], tmp[i+1] = tmp[i+1], tmp[i]
+			tmp[i], tmp[i-1] = tmp[i-1], tmp[i]
 			nodes.append(tmp)
 		if i > 2:
 			tmp = current[:]

@@ -5,6 +5,7 @@ from time import sleep
 from DFS import *
 from BFS import *
 from IDDFS import *
+from AStar import *
 
 class GUI:
     root = None
@@ -43,6 +44,9 @@ class GUI:
         if event.char == 'i':
             print "Iterative Tiefensuche"
             s = IDDFS({'depth' : 0, 'values' : self.values, 'parent' : None}, self.goal)
+        if event.char == 'a':
+            print "A* Suche"
+            s = AStar({'depth' : 0, 'values' : self.values, 'parent' : None}, self.goal)
 
         if s:
             steps = []

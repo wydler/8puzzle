@@ -1,19 +1,19 @@
-8puzzle
+ï»¿8puzzle
 =======
 
 Starten
 -------
 
-python GUI.py
+<code>python GUI.py</code>
 
 Bedienung
 ---------
 
-Mit den Pfeiltasten können die Felder verschoben werden. Damit kann das 8-Puzzle auch manuell gelöst werden.
+Mit den Pfeiltasten kÃ¶nnen die Felder verschoben werden. Damit kann das 8-Puzzle auch manuell gelÃ¶st werden.
 
 Tastenbelegung
 --------------
 
-d = Tiefensuche
-b = Breitensuche
-i = Iterative Tiefensuche
+<code>d</code> = Tiefensuche
+<code>b</code> = Breitensuche
+<code>i</code> = Iterative Tiefensuche

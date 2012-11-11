@@ -1,7 +1,7 @@
 import copy
 
 def expand(node):
-    i = node['values'].index('0')
+    i = node['values'].index(0)
     nodes = []
 
     if i%3 != 0:

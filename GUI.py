@@ -15,8 +15,8 @@ class GUI:
     def __init__(self):
         self.root = Tk()
         self.root.bind_all('<Key>', self.keypress)
-        self.values = ['1', '2', '3', '4', '5', '6', '7', '0', '8']
-        self.goal = ['1', '2', '3', '4', '5', '6', '7', '8', '0']
+        self.values = [1, 2, 3, 4, 5, 6, 7, 0, 8]
+        self.goal = [1, 2, 3, 4, 5, 6, 7, 8, 0]
         self.update()
         self.root.mainloop()
 
@@ -36,11 +36,9 @@ class GUI:
         if event.char == 'b':
             print "Breitensuche"
             s = BFS({'depth' : 0, 'values' : self.values, 'parent' : None}, self.goal)
-            print s.solution
         if event.char == 'd':
             print "Tiefensuche"
             s = DFS({'depth' : 0, 'values' : self.values, 'parent' : None}, self.goal)
-            print s.solution
         if event.char == 'i':
             print "Iterative Tiefensuche"
             s = IDDFS({'depth' : 0, 'values' : self.values, 'parent' : None}, self.goal)
@@ -58,7 +56,7 @@ class GUI:
                 print steps.pop()
 
     def move(self, direction):
-        i = self.values.index('0')
+        i = self.values.index(0)
 
         if direction == 'Left':
             if i%3 != 0:
@@ -87,7 +85,7 @@ class GUI:
             else:
                 Label(self.root, text=v).grid(row=i-i%3, column=i%3, padx=10, pady=10)
 
-        if self.values == ['1', '2', '3', '4', '5', '6', '7', '8', '0']:
+        if self.values == [1, 2, 3, 4, 5, 6, 7, 8, 0]:
             tkMessageBox.showinfo("Success", "SOLVED")
 
 GUI()
